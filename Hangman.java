@@ -3,29 +3,29 @@ import java.util.Scanner;
 
 public class Hangman
 {
-	// Initiates the scanner for the entire game
-	private static Scanner scanner = new Scanner(System.in);
+    // Initiates the scanner for the entire game
+    private static Scanner scanner = new Scanner(System.in);
 	
-	// Flag to keep track of win/loss streak
+    // Flag to keep track of win/loss streak
     private static int win = 0;
     private static int lose = 0;
 	
     // Store the topic the user chooses
-	private static String topic = "";
+    private static String topic = "";
 	
-	// Store the difficulty the user chooses
-	private static String difficulty = "";
+    // Store the difficulty the user chooses
+    private static String difficulty = "";
     
-	// Create an instance of the Random class
+    // Create an instance of the Random class
     private static Random random = new Random();
 
     // Generate a random number within the specified range
     private static int randomNumber = 0;
 	
-	// Initialize the storeOptionsay which will contain the words based off topic choice and difficulty
-	private static String[] storeOptions = new String[5];
+    // Initialize the storeOptionsay which will contain the words based off topic choice and difficulty
+    private static String[] storeOptions = new String[5];
 	
-	// Variable to keep track of rounds so that the diagram can be printed at the right time
+    // Variable to keep track of rounds so that the diagram can be printed at the right time
     private static int numRounds = 0;
     
     // Variable to check if the user already guess that letter
@@ -51,16 +51,16 @@ public class Hangman
 	
     public static void main(String[] args)
     {
-        MAIN_MENU();
+        mainMenu();
     }
     
-    public static void MAIN_MENU()
+    public static void mainMenu()
     {   
         // Display Game Title
-        DISPLAY_TITLE();
+        displayTitle();
         
         // Display Hangman title
-        HANGMAN_DRAWING_TITLE();
+        hangmanDrawingTitle();
         
         // Get user's choice from the main menu
         System.out.print("\nChose one of the options below: \n - Rules\n - Play\n\n");
@@ -76,18 +76,18 @@ public class Hangman
         // Handle user's choice
         if (options.contains("play"))
         {
-            SETTINGS();
-            PLAY_GAME();
+        	settings();
+        	playGame();
         }
         
         if (options.contains("rule"))
-            TUTORIAL();
+        	tutorial();
     }
     
-    private static void TUTORIAL()
+    private static void tutorial()
     {
         // Shows rules on how to play hangman
-    	CLEAR_SCREEN();
+    	clearScreen();
         System.out.println("Hangman: ");
         System.out.println("\n- Hangman is a classic word guessing game.");
         System.out.println("\n- One player thinks of a word and the other player tries to guess it by suggesting letters.");
@@ -100,13 +100,13 @@ public class Hangman
         
         System.out.print("\nPress Enter to return to the main menu. ");
         scanner.nextLine();
-        CLEAR_SCREEN();
-        MAIN_MENU();
+        clearScreen();
+        mainMenu();
     }
     
-    private static void PLAY_GAME()
+    private static void playGame()
     {   
-       String randomWord = SETTINGS();
+       String randomWord = settings();
        
        // Gets length of random word
        length = randomWord.length();
@@ -115,7 +115,7 @@ public class Hangman
        lengthWithoutSpace = length;
        
        // Shows diagram before starting game
-       HANGMAN_DRAWING_0();
+       hangmanDrawingZero();
        
        // Initializes word that user has to fill in 
        String[] displayWord = new String[length];
@@ -155,17 +155,17 @@ public class Hangman
        {
     	// The if statements are for which diagram to show
            if (counter2 == 0 && numRounds >= 1) // numRounds ensure that it only prints after first round because we printed the first diagram already
-        	   HANGMAN_DRAWING_0();
+        	   hangmanDrawingZero();
            if (counter2 == 1)
-        	   HANGMAN_DRAWING_1(); 
+        	   hangmanDrawingOne(); 
            if (counter2 == 2)
-        	   HANGMAN_DRAWING_2(); 
+        	   hangmanDrawingTwo(); 
            if (counter2 == 3)
-        	   HANGMAN_DRAWING_3(); 
+        	   hangmanDrawingThree(); 
            if (counter2 == 4)
-        	   HANGMAN_DRAWING_4(); 
+        	   hangmanDrawingFour(); 
            if (counter2 == 5)
-        	   HANGMAN_DRAWING_5(); 
+        	   hangmanDrawingFive(); 
            
            // Shows the words that the user guesses wrong
            if (!(letterWrong.equals("")))
@@ -266,7 +266,7 @@ public class Hangman
                if (guesses == 0)
                {
                    // Display Title Because User Lost
-                   HANGMAN_DRAWING_TITLE();
+            	   hangmanDrawingTitle();
                    System.out.println("You lose.\nThe word was " + randomWord + ".");
                    lose++;
                    break;
@@ -288,9 +288,9 @@ public class Hangman
        
        if (wantPlayAgain.charAt(0) == 'y')
        {
-           RESET_GAME();
-           CLEAR_SCREEN();
-           MAIN_MENU();
+    	   resetGame();
+           clearScreen();
+           mainMenu();
        }
        else
        {
@@ -299,7 +299,7 @@ public class Hangman
        }
     }
     
-    private static String SETTINGS()
+    private static String settings()
     {
     	System.out.println("Choose Topic (game, movie, or color): ");
     	topic = scanner.nextLine().toLowerCase().trim();
@@ -362,7 +362,7 @@ public class Hangman
         return storeOptions[randomNumber];
     }
     
-    private static void RESET_GAME()
+    private static void resetGame()
     {
         // Reset the variables related to the game state
         numRounds = 0;
@@ -379,13 +379,13 @@ public class Hangman
         randomNumber = random.nextInt(storeOptions.length);
     }
     
-    public static void CLEAR_SCREEN()
+    public static void clearScreen()
     {
     	for (int i = 0; i < 50; i++)
     		System.out.println();
     }
     
-    public static void DISPLAY_TITLE()
+    public static void displayTitle()
     {
     	System.out.println("\t:::    :::     :::     ::::    :::  ::::::::  ::::     ::::     :::     ::::    :::");
         System.out.println("\t:+:    :+:   :+: :+:   :+:+:   :+: :+:    :+: +:+:+: :+:+:+   :+: :+:   :+:+:   :+:");
@@ -396,7 +396,7 @@ public class Hangman
         System.out.println("\t###    ### ###     ### ###    ####  ########  ###       ### ###     ### ###    ####");
     }
     
-    private static void HANGMAN_DRAWING_0()
+    private static void hangmanDrawingZero()
     {
         System.out.println("\n*********************");
         System.out.println("      **       *     ");
@@ -420,7 +420,7 @@ public class Hangman
         System.out.println("*********************\n");
     }
     
-    private static void HANGMAN_DRAWING_1()
+    private static void hangmanDrawingOne()
     {
         System.out.println("\n*********************");
         System.out.println("      **       *     ");
@@ -444,7 +444,7 @@ public class Hangman
         System.out.println("*********************\n");
     }
     
-    private static void HANGMAN_DRAWING_2()
+    private static void hangmanDrawingTwo()
     {
         System.out.println("\n*********************");
         System.out.println("      **       *     ");
@@ -468,7 +468,7 @@ public class Hangman
         System.out.println("*********************\n");
     }
     
-    private static void HANGMAN_DRAWING_3()
+    private static void hangmanDrawingThree()
     {
         System.out.println("\n*********************");
         System.out.println("      **       *     ");
@@ -492,7 +492,7 @@ public class Hangman
         System.out.println("*********************\n");
     }
     
-    private static void HANGMAN_DRAWING_4()
+    private static void hangmanDrawingFour()
     {
         System.out.println("\n*********************");
         System.out.println("      **       *     ");
@@ -516,7 +516,7 @@ public class Hangman
         System.out.println("*********************\n");
     }
     
-    private static void HANGMAN_DRAWING_5()
+    private static void hangmanDrawingFive()
     {
         System.out.println("\n*********************");
         System.out.println("      **       *     ");
@@ -541,7 +541,7 @@ public class Hangman
         System.out.println("*********************\n");
     }
     
-    private static void HANGMAN_DRAWING_TITLE()
+    private static void hangmanDrawingTitle()
     {
         System.out.println("\n*********************");
         System.out.println("      **       *     ");
